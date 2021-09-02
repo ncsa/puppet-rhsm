@@ -1,23 +1,25 @@
-# @summary A short summary of the purpose of this defined type.
-#
-# A description of what this defined type does
+# @summary This define allows a proxy to be set for RHSM.
 #
 # @example
-#   rhsm::proxy { 'namevar': }
+#   rhsm::proxy { 'namevar': $host_port => 'hostname:port' }
 define rhsm::proxy (
   String $host_port,
 ) {
-  $parts = $hostport.split(/:/)
+  $parts = $host_port.split(/:/)
   $_host = $parts[0]
   $_port = $parts[1]
 
-  notify {"RHSM::PROXY Host: ${_host} ${_port}":}
+  exec{'set rhsm proxy_hostname':
+    command => "/usr/bin/subscription-manager config --server.proxy_hostname=${_host}",
+    # Only run if the proxy hostname isn't set or doesn't match the new value.
+    unless => "/usr/bin/subscription-manager config --list | grep -q 'proxy_hostname = ${_host}'",
+    before => Exec ['RHSM-register']
+  }
 
-  exec{'set rhsm proxy':
-    command => "/usr/bin/subscription_manager config --server.proxy=${_host} --server.proxy_port=${_port}",
-#NOTE: Want this to only run if proxy isn't already set up
-#subscription_manager config list 
-#if current matches parameters, do nothing
-# UNLESS subscription_manager config --list | grep -q "proxy=${_host}"
-#UNLESS, ONLYIF     
+  exec{'set rhsm proxy_port':
+    command => "/usr/bin/subscription-manager config --server.proxy_port=${_port}",
+    # Only run if the proxy port isn't set or doesn't match the new value.
+    unless => "/usr/bin/subscription-manager config --list | grep -q 'proxy_port = ${_port}'",
+    before => Exec ['RHSM-register']
+  }
 }
