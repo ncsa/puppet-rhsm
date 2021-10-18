@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "ncsa",
   "summary": "",
-  "license": "bsd-3-clause",
+  "license": "Apache-2.0",
   "source": "",
   "dependencies": [
 
@@ -40,7 +40,7 @@
       "version_requirement": ">= 6.21.0 < 8.0.0"
     }
   ],
-  "pdk-version": "2.1.0",
-  "template-url": "pdk-default#2.1.0",
-  "template-ref": "tags/2.1.0-0-ga675ea5"
+  "pdk-version": "2.2.0",
+  "template-url": "pdk-default#2.2.0",
+  "template-ref": "tags/2.2.0-0-g2381db6"
 }
