@@ -16,8 +16,8 @@ class rhsm (
 
   } else {
     exec { 'RHSM-register':
-       command => Sensitive("/usr/bin/subscription-manager register --org=${org} --activationkey=${activationkey}"),
-       creates => '/etc/pki/consumer/cert.pem',
+      command => Sensitive("/usr/bin/subscription-manager register --org=${org} --activationkey=${activationkey}"),
+      creates => '/etc/pki/consumer/cert.pem',
     }
   }
 }
