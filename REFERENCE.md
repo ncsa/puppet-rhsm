@@ -30,20 +30,27 @@ include rhsm
 
 The following parameters are available in the `rhsm` class:
 
-* [`org`](#org)
 * [`activationkey`](#activationkey)
-
-##### <a name="org"></a>`org`
-
-Data type: `String`
-
-
+* [`enabled`](#enabled)
+* [`org`](#org)
 
 ##### <a name="activationkey"></a>`activationkey`
 
 Data type: `String`
 
+activation key used to preconfigure RHSM subscription before system is registered
 
+##### <a name="enabled"></a>`enabled`
+
+Data type: `Boolean`
+
+Enable/disable rhsm registration.
+
+##### <a name="org"></a>`org`
+
+Data type: `String`
+
+organization ID for RHSM subscription
 
 ## Defined types
 

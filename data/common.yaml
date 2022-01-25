@@ -1,3 +1,4 @@
 ---
-rhsm::org: ""
-rhsm::activationkey: ""
+rhsm::activationkey: ""  # IDEALLY LOOKED UP VIA VAULT
+rhsm::enabled: true
+rhsm::org: ""            # IDEALLY LOOKED UP VIA VAULT
