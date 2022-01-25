@@ -17,9 +17,14 @@ include rhsm
 
 The following parameters need to be set in hiera:
 ```yaml
-rhsm::org: "1234567"
 rhsm::activationkey: "RHIS_2019"
+rhsm::enabled: true
+rhsm::org: "1234567"
 ```
+
+## Proxy Setup
+
+This class also includes a defined type `rhsm::proxy` to optionally configure RHSM with a proxy.
 
 ## Dependencies
 
