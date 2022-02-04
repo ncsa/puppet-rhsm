@@ -8,6 +8,9 @@
 # @param enabled
 #   Enable/disable rhsm registration.
 #
+# @param manage_repos
+#   Enable/disable rhsm management of YUM repos.
+#
 # @param org
 #   organization ID for RHSM subscription
 #
@@ -16,8 +19,18 @@
 class rhsm (
   String  $activationkey,
   Boolean $enabled,
+  Boolean $manage_repos,
   String  $org,
 ) {
+
+  include ::rhsm::proxy
+
+  Exec{
+    path    => [
+      '/bin',
+      '/usr/bin',
+    ],
+  }
 
   if ($enabled) {
     if ($org !~ String[1]) {
@@ -30,18 +43,17 @@ class rhsm (
       exec { 'RHSM-register':
         command => Sensitive("subscription-manager register --org=${org} --activationkey=${activationkey}"),
         creates => '/etc/pki/consumer/cert.pem',
-        path    => [
-          '/bin',
-          '/usr/bin',
-        ],
       }
-      exec { 'RHSM-enable-repos':
-        command => 'subscription-manager config --rhsm.manage_repos=1',
-        onlyif  => 'grep manage_repos /etc/rhsm/rhsm.conf | egrep -i \'0|no\'',
-        path    => [
-          '/bin',
-          '/usr/bin',
-        ],
+      if ( $manage_repos ) {
+        exec { 'RHSM-enable-repos':
+          command => 'subscription-manager config --rhsm.manage_repos=1',
+          onlyif  => 'grep manage_repos /etc/rhsm/rhsm.conf | egrep -i \'0|no\'',
+        }
+      } else {
+        exec { 'RHSM-disable-repos':
+          command => 'subscription-manager config --rhsm.manage_repos=0',
+          onlyif  => 'grep manage_repos /etc/rhsm/rhsm.conf | egrep -i \'1|yes\'',
+        }
       }
 
     }
@@ -50,10 +62,7 @@ class rhsm (
     exec { 'RHSM-disable-repos':
       command => 'subscription-manager config --rhsm.manage_repos=0',
       onlyif  => 'grep manage_repos /etc/rhsm/rhsm.conf | egrep -i \'1|yes\'',
-      path    => [
-        '/bin',
-        '/usr/bin',
-      ],
     }
   }
+
 }
