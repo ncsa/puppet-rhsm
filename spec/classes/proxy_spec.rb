@@ -3,11 +3,6 @@
 require 'spec_helper'
 
 describe 'rhsm::proxy' do
-  let(:title) { 'namevar' }
-  let(:params) do
-    {}
-  end
-
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }

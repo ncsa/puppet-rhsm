@@ -17,14 +17,18 @@ include rhsm
 
 The following parameters need to be set in hiera:
 ```yaml
-rhsm::activationkey: "RHIS_2019"
+rhsm::activationkey: "RHIS_2019"  # IDEALLY LOOKED UP VIA VAULT
 rhsm::enabled: true
-rhsm::org: "1234567"
+rhsm::org: "1234567"              # IDEALLY LOOKED UP VIA VAULT
 ```
 
-## Proxy Setup
+### Proxy Setup
 
-This class also includes a defined type `rhsm::proxy` to optionally configure RHSM with a proxy.
+To enable proxy in RHSM the following parameters also need to be set in hiera:
+```yaml
+rhsm::proxy::hostname: "httpproxy.ncsa.illinois.edu"
+rhsm::proxy::port: "3128"
+```
 
 ## Dependencies
 

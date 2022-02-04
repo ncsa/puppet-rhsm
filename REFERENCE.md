@@ -7,10 +7,7 @@
 ### Classes
 
 * [`rhsm`](#rhsm): Configure the connection to the RedHat Subscription Manager
-
-### Defined types
-
-* [`rhsm::proxy`](#rhsmproxy): This define allows a proxy to be set for RHSM.
+* [`rhsm::proxy`](#rhsmproxy): Set an optional proxy for RHSM
 
 ## Classes
 
@@ -32,6 +29,7 @@ The following parameters are available in the `rhsm` class:
 
 * [`activationkey`](#activationkey)
 * [`enabled`](#enabled)
+* [`manage_repos`](#manage_repos)
 * [`org`](#org)
 
 ##### <a name="activationkey"></a>`activationkey`
@@ -46,35 +44,46 @@ Data type: `Boolean`
 
 Enable/disable rhsm registration.
 
+##### <a name="manage_repos"></a>`manage_repos`
+
+Data type: `Boolean`
+
+Enable/disable rhsm management of YUM repos.
+
 ##### <a name="org"></a>`org`
 
 Data type: `String`
 
 organization ID for RHSM subscription
 
-## Defined types
-
 ### <a name="rhsmproxy"></a>`rhsm::proxy`
 
-This define allows a proxy to be set for RHSM.
+Set an optional proxy for RHSM
 
 #### Examples
 
 ##### 
 
 ```puppet
-rhsm::proxy { 'namevar': $host_port => 'hostname:port' }
+include rhsm::proxy
 ```
 
 #### Parameters
 
-The following parameters are available in the `rhsm::proxy` defined type:
+The following parameters are available in the `rhsm::proxy` class:
 
-* [`host_port`](#host_port)
+* [`hostname`](#hostname)
+* [`port`](#port)
 
-##### <a name="host_port"></a>`host_port`
+##### <a name="hostname"></a>`hostname`
 
 Data type: `String`
 
+hostname of httpproxy that RHSM should use
 
+##### <a name="port"></a>`port`
+
+Data type: `String`
+
+port of httpproxy that RHSM should use
 
