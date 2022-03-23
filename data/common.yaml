@@ -3,5 +3,5 @@ rhsm::activationkey: ""  # IDEALLY LOOKED UP VIA VAULT
 rhsm::enabled: true
 rhsm::manage_repos: true
 rhsm::org: ""            # IDEALLY LOOKED UP VIA VAULT
-rhsm::proxy::host: ""
+rhsm::proxy::hostname: ""
 rhsm::proxy::port: ""
