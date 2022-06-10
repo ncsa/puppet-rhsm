@@ -1,5 +1,5 @@
 Facter.add('rhsm_manage_repo') do
-  confine osfamily: 'RedHat'
+  confine operatingsystem: 'RedHat'
   setcode do
     rhsm_result = Facter::Util::Resolution.exec('subscription-manager config --list  | grep manage_repos | awk \'{ print $NF}\'')
     case rhsm_result
